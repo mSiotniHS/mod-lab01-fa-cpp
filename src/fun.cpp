@@ -41,7 +41,37 @@ unsigned int faStr1(const char *str) {
 }
 
 unsigned int faStr2(const char *str) {
-    return 0;
+    size_t length = strlen(str);
+
+    bool inWord = false;
+    bool isHeadUppercase = false;
+    bool isTailLowercase = false;
+    unsigned int capitalizedWordCount = 0;
+
+    for (size_t i = 0; i < length; i++)
+    {
+        char character = str[i];
+        bool isLastIteration = i == length - 1;
+
+        if (!inWord && character != space)
+        {
+            inWord = true;
+            isHeadUppercase = isupper(character);
+            isTailLowercase = true;
+        }
+        else if (inWord && character != space && isHeadUppercase && isTailLowercase)
+        {
+            isTailLowercase = islower(character);
+        }
+
+        if (inWord && character == space || inWord && isLastIteration)
+        {
+            inWord = false;
+            capitalizedWordCount += isHeadUppercase && isTailLowercase; // наверное, не шибко читабельно
+        }
+    }
+
+    return capitalizedWordCount;
 }
 
 unsigned int faStr3(const char *str) {
