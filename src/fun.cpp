@@ -28,7 +28,7 @@ unsigned int faStr1(const char *str) {
 
         if (inWord && character == space || inWord && isLastIteration) {
             inWord = false;
-            digitlessCount += digitless;
+            digitlessCount += digitless ? 1 : 0;
         }
     }
 
@@ -58,7 +58,7 @@ unsigned int faStr2(const char *str) {
 
         if (inWord && character == space || inWord && isLastIteration) {
             inWord = false;
-            capitalizedWordCount += isHeadUppercase && isTailLowercase; // наверное, не шибко читабельно
+            capitalizedWordCount += isHeadUppercase && isTailLowercase ? 1 : 0;
         }
     }
 
