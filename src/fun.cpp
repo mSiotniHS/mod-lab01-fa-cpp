@@ -4,35 +4,29 @@
 #include <cmath>
 #include "fun.h"
 
-using namespace std;
-
 const char space = ' ';
 
 unsigned int faStr1(const char *str) {
-    size_t length = strlen(str);
+    std::size_t length = strlen(str);
 
     bool inWord = false;
     bool digitless = true;
     unsigned int digitlessCount = 0;
 
-    for (int i = 0; i < length; i++)
-    {
+    for (std::size_t i = 0; i < length; i++) {
         char character = str[i];
         bool isLastIteration = i == length - 1;
 
-        if (!inWord && character != space)
-        {
+        if (!inWord && character != space) {
             inWord = true;
             digitless = true;
         }
 
-        if (inWord && digitless && isdigit(character))
-        {
+        if (inWord && digitless && isdigit(character)) {
             digitless = false;
         }
 
-        if (inWord && character == space || inWord && isLastIteration)
-        {
+        if (inWord && character == space || inWord && isLastIteration) {
             inWord = false;
             digitlessCount += digitless;
         }
@@ -42,31 +36,27 @@ unsigned int faStr1(const char *str) {
 }
 
 unsigned int faStr2(const char *str) {
-    size_t length = strlen(str);
+    std::size_t length = strlen(str);
 
     bool inWord = false;
     bool isHeadUppercase = false;
     bool isTailLowercase = false;
     unsigned int capitalizedWordCount = 0;
 
-    for (size_t i = 0; i < length; i++)
-    {
+    for (std::size_t i = 0; i < length; i++) {
         char character = str[i];
         bool isLastIteration = i == length - 1;
 
-        if (!inWord && character != space)
-        {
+        if (!inWord && character != space) {
             inWord = true;
             isHeadUppercase = isupper(character);
             isTailLowercase = true;
-        }
-        else if (inWord && character != space && isHeadUppercase && isTailLowercase)
-        {
+        } else if (inWord && character != space &&
+                   isHeadUppercase && isTailLowercase) {
             isTailLowercase = islower(character);
         }
 
-        if (inWord && character == space || inWord && isLastIteration)
-        {
+        if (inWord && character == space || inWord && isLastIteration) {
             inWord = false;
             capitalizedWordCount += isHeadUppercase && isTailLowercase; // наверное, не шибко читабельно
         }
@@ -76,13 +66,13 @@ unsigned int faStr2(const char *str) {
 }
 
 unsigned int faStr3(const char *str) {
-    size_t length = strlen(str);
+    std::size_t length = strlen(str);
 
     bool inWord = false;
     unsigned int wordCount = 0;
     unsigned int lengthSum = 0;
 
-    for (size_t i = 0; i < length; i++) {
+    for (std::size_t i = 0; i < length; i++) {
         char character = str[i];
 
         if (!inWord && character != space) {
@@ -99,5 +89,5 @@ unsigned int faStr3(const char *str) {
         }
     }
 
-    return round((float) lengthSum / wordCount);
+    return round(static_cast<float>(lengthSum) / wordCount);
 }
